@@ -11,18 +11,24 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.10.4",
     "@neondatabase/serverless": "^0.9.4",
     "@prisma/adapter-neon": "^5.18.0",
     "@prisma/client": "^6.1.0",
+    "@radix-ui/react-slot": "^1.1.1",
     "@tanstack/react-query": "^5.51.23",
     "@upstash/redis": "^1.34.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "hono": "^4.5.5",
+    "lucide-react": "^0.474.0",
     "next": "^14.2.8",
     "react": "^18",
     "react-dom": "^18",
+    "shadcn": "^2.3.0",
     "superjson": "^2.2.1",
-    "tailwind-merge": "^2.5.2",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7",
     "wrangler": "^3.72.0",
     "zod": "^3.23.8"
   },
@@ -38,5 +44,19 @@
     "prisma": "^6.1.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  }
+  },
+  "description": "STAR THE REPO IF YOURE COOL",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shankar-WebDev/SaaS-pingpanda.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Shankar-WebDev/SaaS-pingpanda/issues"
+  },
+  "homepage": "https://github.com/Shankar-WebDev/SaaS-pingpanda#readme"
 }
