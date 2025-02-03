@@ -7,6 +7,22 @@ import { cacheExtension } from "./__internals/db/cache-extension"
 import { j } from "./__internals/j"
 
 
+
+
+const authMiddleware = j.middleware(({next})=>{
+
+    const user ={name:"shankar"}
+    return next({user})
+})
+
+
+
+
+
+
+
+
+
 /**
  * Public (unauthenticated) procedures
  *
@@ -14,3 +30,4 @@ import { j } from "./__internals/j"
  */
 export const baseProcedure = j.procedure
 export const publicProcedure = baseProcedure
+export const privateProcedure = publicProcedure.use(authMiddleware)
