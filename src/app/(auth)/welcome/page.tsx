@@ -2,8 +2,7 @@
 
 // synchoronzise  auth status to database
 
-
-import { client } from "@/app/lib/client"
+import { client } from "@/lib/client"
 import { Heading } from "@/components/headings"
 import { LoadingSpinner } from "@/components/loading-spinner"
 import { useQuery } from "@tanstack/react-query"
@@ -22,12 +21,11 @@ const Page = () => {
     refetchInterval: (query) => {
       return query.state.data?.isSynced ? false : 1000
     },
-    
   })
 
   useEffect(() => {
-    if(data?.isSynced) router.push("/dashboard")
-  }, [data, router])  
+    if (data?.isSynced) router.push("/dashboard")
+  }, [data, router])
 
   return (
     <div className="flex w-full flex-1 items-center justify-center px-4">

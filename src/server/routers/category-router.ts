@@ -3,8 +3,9 @@ import { router } from "../__internals/router"
 import { privateProcedure } from "../procedures"
 import { startOfMonth } from "date-fns"
 import { z } from "zod"
-import { CATEGORY_NAME_VALIDATOR } from "@/app/lib/validators/category-validator"
+import { CATEGORY_NAME_VALIDATOR } from "@/lib/validators/category-validator"
 import { parseColor } from "@/utils"
+import { HTTPException } from "hono/http-exception"
 
 export const categoryRouter = router({
   getEventCategories: privateProcedure.query(async ({ c, ctx }) => {
@@ -108,19 +109,45 @@ export const categoryRouter = router({
       return c.json({ success: true })
     }),
 
-    insertQuickstartCategories: privateProcedure.mutation(async ({ ctx, c }) => {
-      const categories = await db.eventCategory.createMany({
-        data: [
-          { name: "Bug", emoji: "🐞", color: 0xff6b6b },
-          { name: "Sale", emoji: "💸", color: 0xffeb3b },
-          { name: "Question", emoji: "🤔", color: 0x6c5ce7 },
-        ].map((category) => ({
-          ...category,  // Spread the existing category data
-          userId: ctx.user.id,  // Add userId property
-        })),
-      });
-  
-      return c.json({ success: true, count: categories.count });
+  insertQuickstartCategories: privateProcedure.mutation(async ({ ctx, c }) => {
+    const categories = await db.eventCategory.createMany({
+      data: [
+        { name: "Bug", emoji: "🐞", color: 0xff6b6b },
+        { name: "Sale", emoji: "💸", color: 0xffeb3b },
+        { name: "Question", emoji: "🤔", color: 0x6c5ce7 },
+      ].map((category) => ({
+        ...category, // Spread the existing category data
+        userId: ctx.user.id, // Add userId property
+      })),
+    })
+
+    return c.json({ success: true, count: categories.count })
   }),
-  
+
+  pollCategory: privateProcedure
+    .input(z.object({ name: CATEGORY_NAME_VALIDATOR }))
+    .query(async ({ c, ctx, input }) => {
+      const { name } = input
+
+      const category = await db.eventCategory.findUnique({
+        where: { name_userId: { name, userId: ctx.user.id } },
+        include: {
+          _count: {
+            select: {
+              events: true,
+            },
+          },
+        },
+      })
+
+      if (!category) {
+        throw new HTTPException(404, {
+          message: `Category "${name}" not found`,
+        })
+      }
+
+      const hasEvent = category._count.events > 0
+
+      return c.json({ hasEvent })
+    }),
 })
