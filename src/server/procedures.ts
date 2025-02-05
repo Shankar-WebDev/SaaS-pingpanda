@@ -1,27 +1,37 @@
-import { Pool } from "@neondatabase/serverless"
-import { PrismaNeon } from "@prisma/adapter-neon"
-import { PrismaClient } from "@prisma/client"
-import { Redis } from "@upstash/redis/cloudflare"
-import { env } from "hono/adapter"
-import { cacheExtension } from "./__internals/db/cache-extension"
+import { db } from "@/db"
 import { j } from "./__internals/j"
+import { currentUser } from "@clerk/nextjs/server"
+import { HTTPException } from "hono/http-exception"
 
+const authMiddleware = j.middleware(async ({ c, next }) => {
+  const authHeader = c.req.header("Authorization")
 
+  if (authHeader) {
+    const apiKey = authHeader.split(" ")[1] // bearer <API_KEY>
 
+    const user = await db.user.findUnique({
+      where: { apiKey },
+    })
 
-const authMiddleware = j.middleware(({next})=>{
+    if (user) return next({ user })
+  }
 
-    const user ={name:"shankar"}
-    return next({user})
+  const auth = await currentUser()
+
+  if (!auth) {
+    throw new HTTPException(401, { message: "Unauthorized" })
+  }
+
+  const user = await db.user.findUnique({
+    where: { externalId: auth.id },
+  })
+
+  if (!user) {
+    throw new HTTPException(401, { message: "Unauthorized" })
+  }
+
+  return next({ user })
 })
-
-
-
-
-
-
-
-
 
 /**
  * Public (unauthenticated) procedures
