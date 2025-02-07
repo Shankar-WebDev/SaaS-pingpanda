@@ -6,8 +6,15 @@ import { DashboardPageContent } from "./dashboard-page-content"
 import { CreateEventCategoryModal } from "@/components/create-event-category-modal"
 import { Button } from "@/components/ui/button"
 import { PlusIcon } from "lucide-react"
+import { createCheckoutSession } from "@/lib/stripe"
 
-const Page = async () => {
+interface PageProps {
+  searchParams: {
+    [key: string]: string | string[] | undefined
+  }
+}
+
+const Page = async ({ searchParams }: PageProps) => {
   const auth = await currentUser()
 
   if (!auth) {
@@ -21,19 +28,37 @@ const Page = async () => {
   if (!user) {
     redirect("/sign-in")
   }
+  const intent = searchParams.intent
+
+  if (intent === "upgrade ") {
+    const session = await createCheckoutSession({
+      userEmail: user.email,
+      userId: user.id,
+    })
+
+    if (session.url) redirect(session.url)
+  }
+
+
+  const sucess = searchParams.sucess
 
   return (
+
+    <>
+    
     <DashboardPage
-      cta={<CreateEventCategoryModal>
-        <Button className="w-full sm:w-fit">
-          <PlusIcon/> 
-          Add Category
-        </Button>
-      </CreateEventCategoryModal>}
+      cta={
+        <CreateEventCategoryModal>
+          <Button className="w-full sm:w-fit">
+            <PlusIcon />
+            Add Category
+          </Button>
+        </CreateEventCategoryModal>
+      }
       title="Dashboard"
     >
       <DashboardPageContent />
-    </DashboardPage>
+    </DashboardPage></>
   )
 }
 
