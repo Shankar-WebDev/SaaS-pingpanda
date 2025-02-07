@@ -1,10 +1,11 @@
+import { Card } from "@/components/ui/card"
 import { client } from "@/lib/client"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
-import { Card } from "@/components/ui/card"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export const EmptyCategoryState = ({
   categoryName,
 }: {
@@ -18,18 +19,19 @@ export const EmptyCategoryState = ({
       const res = await client.category.pollCategory.$get({
         name: categoryName,
       })
+
       return await res.json()
     },
     refetchInterval(query) {
-      return query.state.data?.hasEvent ? false : 1000
+      return query.state.data?.hasEvents ? false : 1000
     },
   })
 
-  const hasEvent = data?.hasEvent
+  const hasEvents = data?.hasEvents
 
   useEffect(() => {
-    if (hasEvent) router.refresh()
-  }, [hasEvent, router])
+    if (hasEvents) router.refresh()
+  }, [hasEvents, router])
 
   const codeSnippet = `await fetch('http://localhost:3000/api/events', {
   method: 'POST',
@@ -48,23 +50,26 @@ export const EmptyCategoryState = ({
   return (
     <Card
       contentClassName="max-w-2xl w-full flex flex-col items-center p-6"
-      className="flex-1 flex items-center justify-center "
+      className="flex-1 flex items-center justify-center"
     >
-      <h2 className="text-xl/8 font-medium text-center tracking-tighter text-gray-950">
-        create your first {categoryName} event
+      <h2 className="text-xl/8 font-medium text-center tracking-tight text-gray-950">
+        Create your first {categoryName} event
       </h2>
-      <p className="text-sm-6 text-gray-600 mb-8 max-w-md text-center text-pretty">
-        Get starting by sending a request to our tracking API:
+      <p className="text-sm/6 text-gray-600 mb-8 max-w-md text-center text-pretty">
+        Get started by sending a request to our tracking API:
       </p>
+
       <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className=" bg-gray-800 px-4 py-2 flex justify-between items-center">
+        <div className="bg-gray-800 px-4 py-2 flex justify-between items-center">
           <div className="flex space-x-2">
             <div className="size-3 rounded-full bg-red-500" />
             <div className="size-3 rounded-full bg-yellow-500" />
             <div className="size-3 rounded-full bg-green-500" />
           </div>
+
           <span className="text-gray-400 text-sm">your-first-event.js</span>
         </div>
+
         <SyntaxHighlighter
           language="javascript"
           style={atomDark}
@@ -83,17 +88,21 @@ export const EmptyCategoryState = ({
       <div className="mt-8 flex flex-col items-center space-x-2">
         <div className="flex gap-2 items-center">
           <div className="size-2 bg-green-500 rounded-full animate-pulse" />
-          <span className="text-sm">Listening to incoming events.....</span>
+          <span className="text-sm text-gray-600">
+            Listening to incoming events...
+          </span>
         </div>
-        <p className="text-sm/6 text-gray-600 ">
-          Need help? check out our{" "}
-          <a href="#" className="text-blue-600 hover:underline ">
-            Documentation
+
+        <p className="text-sm/6 text-gray-600 mt-2">
+          Need help? Check out our{" "}
+          <a href="#" className="text-blue-600 hover:underline">
+            documentation
           </a>{" "}
-          or {""}
-          <a href="#" className="text-blue-600 hover:underline ">
-            Contact support
+          or{" "}
+          <a href="#" className="text-blue-600 hover:underline">
+            contact support
           </a>
+          .
         </p>
       </div>
     </Card>
