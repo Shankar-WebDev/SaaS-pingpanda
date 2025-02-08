@@ -7,6 +7,7 @@ import { CreateEventCategoryModal } from "@/components/create-event-category-mod
 import { Button } from "@/components/ui/button"
 import { PlusIcon } from "lucide-react"
 import { createCheckoutSession } from "@/lib/stripe"
+import { PaymentSucessModel } from "@/components/payment-successfull-modal"
 
 interface PageProps {
   searchParams: {
@@ -39,26 +40,25 @@ const Page = async ({ searchParams }: PageProps) => {
     if (session.url) redirect(session.url)
   }
 
-
-  const sucess = searchParams.sucess
+  const success = searchParams.sucess
 
   return (
-
     <>
-    
-    <DashboardPage
-      cta={
-        <CreateEventCategoryModal>
-          <Button className="w-full sm:w-fit">
-            <PlusIcon />
-            Add Category
-          </Button>
-        </CreateEventCategoryModal>
-      }
-      title="Dashboard"
-    >
-      <DashboardPageContent />
-    </DashboardPage></>
+      {success ? <PaymentSucessModel /> : null}
+      <DashboardPage
+        cta={
+          <CreateEventCategoryModal>
+            <Button className="w-full sm:w-fit">
+              <PlusIcon />
+              Add Category
+            </Button>
+          </CreateEventCategoryModal>
+        }
+        title="Dashboard"
+      >
+        <DashboardPageContent />
+      </DashboardPage>
+    </>
   )
 }
 
