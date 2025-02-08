@@ -9,6 +9,8 @@ import { LoadingSpinner } from "./loading-spinner"
 import { Button } from "./ui/button"
 import { CheckIcon } from "lucide-react"
 import Image from "next/image"
+
+
 export const PaymentSuccessModal = () => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(true)
