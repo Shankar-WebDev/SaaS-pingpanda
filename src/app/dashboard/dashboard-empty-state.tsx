@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { client } from "@/lib/client"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import Image from "next/image"
 
 export const DashboardEmptyState = () => {
   const queryClient = useQueryClient()
@@ -19,11 +20,15 @@ export const DashboardEmptyState = () => {
   return (
     <Card className="flex flex-col items-center justify-center rounded-2xl flex-1 text-center p-6">
       <div className="flex justify-center w-full">
-        <img
+        <Image
           src="/brand-asset-wave.png"
           alt="No categories"
-          className="size-48 -mt-24"
+          width={192} // Equivalent to `size-48`
+          height={192}
+          className="-mt-24"
+          priority // Ensures fast LCP (Largest Contentful Paint)
         />
+        Why
       </div>
 
       <h1 className="mt-2 text-xl/8 font-medium tracking-tight text-gray-900">
