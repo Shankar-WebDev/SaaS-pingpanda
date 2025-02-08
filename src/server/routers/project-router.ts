@@ -1,6 +1,6 @@
-import { privateProcedure } from "../procedures"
-import { router } from "../__internals/router"
 import { addMonths, startOfMonth } from "date-fns"
+import { router } from "../__internals/router"
+import { privateProcedure } from "../procedures"
 import { db } from "@/db"
 import { FREE_QUOTA, PRO_QUOTA } from "@/config"
 import { z } from "zod"
@@ -22,15 +22,12 @@ export const projectRouter = router({
     const eventCount = quota?.count ?? 0
 
     const categoryCount = await db.eventCategory.count({
-      where: {
-        userId: user.id,
-      },
+      where: { userId: user.id },
     })
 
     const limits = user.plan === "PRO" ? PRO_QUOTA : FREE_QUOTA
 
-    // Calculate the reset date as the start of next month
-    const resetDate = startOfMonth(addMonths(currentDate, 1))
+    const resetDate = addMonths(currentDate, 1)
 
     return c.superjson({
       categoriesUsed: categoryCount,
@@ -48,13 +45,10 @@ export const projectRouter = router({
       const { discordId } = input
 
       await db.user.update({
-        where: {
-          id: user.id,
-        },
+        where: { id: user.id },
         data: { discordId },
       })
 
-      return c.json({success: true})
-
+      return c.json({ success: true })
     }),
 })

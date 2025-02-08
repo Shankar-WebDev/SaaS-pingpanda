@@ -1,6 +1,6 @@
 "use client"
 
-import { Heading } from "@/components/headings"
+import { Heading } from "@/components/heading"
 import { MaxWidthWrapper } from "@/components/max-width-wrapper"
 import { Button } from "@/components/ui/button"
 import { client } from "@/lib/client"

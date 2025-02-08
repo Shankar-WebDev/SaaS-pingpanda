@@ -1,6 +1,7 @@
-import { Navbar } from "../../components/navbar"
 import { ReactNode } from "react"
-export default function Layout({ children }: { children: ReactNode }) {
+import { Navbar } from "@/components/navbar"
+
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar />
@@ -8,3 +9,5 @@ export default function Layout({ children }: { children: ReactNode }) {
     </>
   )
 }
+
+export default Layout

@@ -1,10 +1,10 @@
 "use client"
 
-// synchoronzise  auth status to database
+// synchronize auth status to database
 
-import { client } from "@/lib/client"
-import { Heading } from "@/components/headings"
+import { Heading } from "@/components/heading"
 import { LoadingSpinner } from "@/components/loading-spinner"
+import { client } from "@/lib/client"
 import { useQuery } from "@tanstack/react-query"
 import { LucideProps } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -12,6 +12,7 @@ import { useEffect } from "react"
 
 const Page = () => {
   const router = useRouter()
+
   const { data } = useQuery({
     queryFn: async () => {
       const res = await client.auth.getDatabaseSyncStatus.$get()
@@ -33,9 +34,9 @@ const Page = () => {
 
       <div className="relative z-10 flex -translate-y-1/2 flex-col items-center gap-6 text-center">
         <LoadingSpinner size="md" />
-        <Heading>Creating your accounting...</Heading>
+        <Heading>Creating your account...</Heading>
         <p className="text-base/7 text-gray-600 max-w-prose">
-          Just a moment while we set things up for you.{" "}
+          Just a moment while we set things up for you.
         </p>
       </div>
     </div>

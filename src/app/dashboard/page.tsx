@@ -7,7 +7,7 @@ import { CreateEventCategoryModal } from "@/components/create-event-category-mod
 import { Button } from "@/components/ui/button"
 import { PlusIcon } from "lucide-react"
 import { createCheckoutSession } from "@/lib/stripe"
-import { PaymentSucessModel } from "@/components/payment-successfull-modal"
+import { PaymentSuccessModal } from "@/components/payment-success-modal"
 
 interface PageProps {
   searchParams: {
@@ -27,11 +27,12 @@ const Page = async ({ searchParams }: PageProps) => {
   })
 
   if (!user) {
-    redirect("/sign-in")
+    return redirect("/welcome")
   }
+
   const intent = searchParams.intent
 
-  if (intent === "upgrade ") {
+  if (intent === "upgrade") {
     const session = await createCheckoutSession({
       userEmail: user.email,
       userId: user.id,
@@ -40,16 +41,17 @@ const Page = async ({ searchParams }: PageProps) => {
     if (session.url) redirect(session.url)
   }
 
-  const success = searchParams.sucess
+  const success = searchParams.success
 
   return (
     <>
-      {success ? <PaymentSucessModel /> : null}
+      {success ? <PaymentSuccessModal /> : null}
+
       <DashboardPage
         cta={
           <CreateEventCategoryModal>
             <Button className="w-full sm:w-fit">
-              <PlusIcon />
+              <PlusIcon className="size-4 mr-2" />
               Add Category
             </Button>
           </CreateEventCategoryModal>

@@ -24,16 +24,18 @@ export const DashboardPageContent = () => {
     },
   })
 
-  const { mutate: deleteCategory, isPending: isDeletingCategory } = useMutation({
-    mutationFn: async (name: string) => {
-      await client.category.deleteCategory.$post({ name })
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-event-categories"] })
-      setDeletingCategory(null)
-    },
-  })
-  
+  const { mutate: deleteCategory, isPending: isDeletingCategory } = useMutation(
+    {
+      mutationFn: async (name: string) => {
+        await client.category.deleteCategory.$post({ name })
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["user-event-categories"] })
+        setDeletingCategory(null)
+      },
+    }
+  )
+
   if (isEventCategoriesLoading) {
     return (
       <div className="flex items-center justify-center flex-1 h-full w-full">
@@ -97,7 +99,7 @@ export const DashboardPageContent = () => {
                 <div className="flex items-center text-sm/5 text-gray-600">
                   <BarChart2 className="size-4 mr-2 text-brand-500" />
                   <span className="font-medium">Events this month:</span>
-                  <span className="ml-1">{category.eventCount || 0}</span>
+                  <span className="ml-1">{category.eventsCount || 0}</span>
                 </div>
               </div>
 

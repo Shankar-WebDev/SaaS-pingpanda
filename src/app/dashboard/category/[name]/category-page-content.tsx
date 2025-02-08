@@ -25,7 +25,7 @@ import {
 } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/utils"
-import { Heading } from "@/components/headings"
+import { Heading } from "@/components/heading"
 import {
   Table,
   TableBody,
@@ -178,7 +178,7 @@ export const CategoryPageContent = ({
     searchParams.set("limit", pagination.pageSize.toString())
     router.push(`?${searchParams.toString()}`, { scroll: false })
   }, [pagination, router])
-
+  
   /**
    * END OF WHAT I FORGOT IN THE VIDEO
    */
@@ -379,7 +379,7 @@ export const CategoryPageContent = ({
         </Card>
       </div>
 
-      <div className="felx items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
           size="sm"

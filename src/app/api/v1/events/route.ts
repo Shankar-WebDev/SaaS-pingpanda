@@ -1,6 +1,6 @@
 import { FREE_QUOTA, PRO_QUOTA } from "@/config"
 import { db } from "@/db"
-import { DiscordClient } from "@/lib/discord-clients"
+import { DiscordClient } from "@/lib/discord-client"
 import { CATEGORY_NAME_VALIDATOR } from "@/lib/validators/category-validator"
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"

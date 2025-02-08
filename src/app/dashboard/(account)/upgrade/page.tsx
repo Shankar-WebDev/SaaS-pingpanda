@@ -7,7 +7,6 @@ import { UpgradePageContent } from "./upgrade-page-content"
 const Page = async () => {
   const auth = await currentUser()
 
-
   if (!auth) {
     redirect("/sign-in")
   }
@@ -16,15 +15,15 @@ const Page = async () => {
     where: { externalId: auth.id },
   })
 
-  if(!user){
+  if (!user) {
     redirect("/sign-in")
   }
 
-  return <DashboardPage title="Pro Membership">
-      <UpgradePageContent plan={user.plan}/>
-  </DashboardPage>
-
-
+  return (
+    <DashboardPage title="Pro Membership">
+      <UpgradePageContent plan={user.plan} />
+    </DashboardPage>
+  )
 }
 
 export default Page

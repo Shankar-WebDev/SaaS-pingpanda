@@ -1,46 +1,46 @@
-import React from "react"
-
-import { Heading } from "@/components/headings"
+import { Heading } from "@/components/heading"
 import { MaxWidthWrapper } from "@/components/max-width-wrapper"
 import { Check, Star } from "lucide-react"
 import { ShinyButton } from "@/components/shiny-button"
-import { MockDiscordUI } from "@/components/mock-discard-ui"
+import { MockDiscordUI } from "@/components/mock-discord-ui"
 import { AnimatedList, AnimatedListItem } from "@/components/ui/animated-list"
 import { DiscordMessage } from "@/components/discord-message"
 import Image from "next/image"
-import { Icons } from "@/components/icons"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
-import language from "react-syntax-highlighter/dist/esm/languages/hljs/1c"
+import { Icons } from "@/components/icons"
+
 const Page = () => {
-  const codeSnippet = `await fetch('http://localhost:3000/api/v1/events', {
-  method:"POST",
-  body:JSON.stringify({
-    category:"sale",
-    fields;{
-     plan :"PRO",
-     email:"sankar241101@gmail.com"
-     amount:49.00
+  const codeSnippet = `await fetch("http://localhost:3000/api/v1/events", {
+  method: "POST",
+  body: JSON.stringify({
+    category: "sale",
+    fields: {
+      plan: "PRO",
+      email: "zoe.martinez2001@email.com",
+      amount: 49.00
     }
   }),
-  headers:{
-    Authorization: "Bearer<YOUR_API_KEY>"
+  headers: {
+    Authorization: "Bearer <YOUR_API_KEY>"
   }
 })`
+
   return (
     <>
       <section className="relative py-24 sm:py-32 bg-brand-25">
-        <MaxWidthWrapper className="px-4">
+        <MaxWidthWrapper className="text-center">
           <div className="relative mx-auto text-center flex flex-col items-center gap-10">
             <div>
               <Heading>
-                <span>Real-Time SaaS Insights</span>
+                <span>Real-Time SaaS Insights,</span>
                 <br />
                 <span className="relative bg-gradient-to-r from-brand-700 to-brand-800 text-transparent bg-clip-text">
-                  Delivered to your Discord
+                  Delivered to Your Discord
                 </span>
               </Heading>
             </div>
+
             <p className="text-base/7 text-gray-600 max-w-prose text-center text-pretty">
               PingPanda is the easiest way to monitor your SaaS. Get instant
               notifications for{" "}
@@ -49,7 +49,8 @@ const Page = () => {
               </span>{" "}
               sent directly to your Discord.
             </p>
-            <ul className="space-y-2 text-base/7 text-gray-600 text-left flex flex-col items-center sm:items-start">
+
+            <ul className="space-y-2 text-base/7 text-gray-600 text-left flex flex-col items-start">
               {[
                 "Real-time Discord alerts for critical events",
                 "Buy once, use forever",
@@ -61,14 +62,19 @@ const Page = () => {
                 </li>
               ))}
             </ul>
+
             <div className="w-full max-w-80">
-              <ShinyButton className="relative z-10 h-14 w-full text-base shadow-lg transition-shadow duration-300 hover:shadow-xl">
+              <ShinyButton
+                href="/sign-up"
+                className="relative z-10 h-14 w-full text-base shadow-lg transition-shadow duration-300 hover:shadow-xl"
+              >
                 Start For Free Today
               </ShinyButton>
             </div>
           </div>
         </MaxWidthWrapper>
       </section>
+
       <section className="relative bg-brand-25 pb-4">
         <div className="absolute inset-x-0 bottom-24 top-24 bg-brand-700" />
         <div className="relative mx-auto">
@@ -78,41 +84,41 @@ const Page = () => {
                 <AnimatedList>
                   <DiscordMessage
                     avatarSrc="/brand-asset-profile-picture.png"
-                    avatarAlt="PingPanda"
+                    avatarAlt="PingPanda Avatar"
+                    username="PingPanda"
                     timestamp="Today at 12:35PM"
                     badgeText="SignUp"
                     badgeColor="#43b581"
-                    username="PingPanda"
-                    title="🙍🏻 New user Signed up"
+                    title="👤 New user signed up"
                     content={{
-                      name: "Shankar Webdev",
-                      email: "shankar241101@gmail.com",
+                      name: "Mateo Ortiz",
+                      email: "m.ortiz19@gmail.com",
                     }}
                   />
                   <DiscordMessage
                     avatarSrc="/brand-asset-profile-picture.png"
-                    avatarAlt="PingPanda"
+                    avatarAlt="PingPanda Avatar"
+                    username="PingPanda"
                     timestamp="Today at 12:35PM"
                     badgeText="Revenue"
                     badgeColor="#faa61a"
-                    username="PingPanda"
-                    title="💸Payment Recived"
+                    title="💰 Payment received"
                     content={{
                       amount: "$49.00",
-                      email: "liferacer0046@gmail.com",
+                      email: "zoe.martinez2001@email.com",
                       plan: "PRO",
                     }}
                   />
                   <DiscordMessage
                     avatarSrc="/brand-asset-profile-picture.png"
-                    avatarAlt="PingPanda Avator"
+                    avatarAlt="PingPanda Avatar"
+                    username="PingPanda"
                     timestamp="Today at 5:11AM"
                     badgeText="Milestone"
                     badgeColor="#5865f2"
-                    username="PingPanda"
-                    title="🏎️ Revenue Milestone Achieved"
+                    title="🚀 Revenue Milestone Achieved"
                     content={{
-                      recuringRevenue: "$5.000 USD",
+                      recurringRevenue: "$5.000 USD",
                       growth: "+8.2%",
                     }}
                   />
@@ -122,6 +128,7 @@ const Page = () => {
           </MaxWidthWrapper>
         </div>
       </section>
+
       <section className="relative py-24 sm:py-32 bg-brand-25">
         <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-20">
           <div>
@@ -309,10 +316,10 @@ const Page = () => {
                 />
                 <div className="flex flex-col items-center sm:items-start">
                   <p className="font-semibold flex items-center">
-                    Meera
+                    Freya Larsson
                     <Icons.verificationBadge className="size-4 inline-block ml-1.5" />
                   </p>
-                  <p className="text-sm text-gray-600">@meera</p>
+                  <p className="text-sm text-gray-600">@itsfreya</p>
                 </div>
               </div>
             </div>
@@ -343,10 +350,10 @@ const Page = () => {
                 />
                 <div className="flex flex-col items-center sm:items-start">
                   <p className="font-semibold flex items-center">
-                    Shankarwebdev
+                    Kai Durant
                     <Icons.verificationBadge className="size-4 inline-block ml-1.5" />
                   </p>
-                  <p className="text-sm text-gray-600">@shankar</p>
+                  <p className="text-sm text-gray-600">@kdurant_</p>
                 </div>
               </div>
             </div>
