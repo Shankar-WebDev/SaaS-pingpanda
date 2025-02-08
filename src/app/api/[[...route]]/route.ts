@@ -1,8 +1,4 @@
-import { httpHandler } from "@/server";
+import { httpHandler } from "@/server"
+export const runtime = "nodejs"
 
-// Switch to Serverless instead of Edge
-export const config = {
-  runtime: "nodejs",
-};
-
-export { httpHandler as GET, httpHandler as POST };
+export { httpHandler as GET, httpHandler as POST }
